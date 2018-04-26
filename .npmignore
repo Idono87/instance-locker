@@ -1,0 +1,6 @@
+.gitignore
+src
+README.md
+tsconfig.json
+prod.tsconfig.json
+test

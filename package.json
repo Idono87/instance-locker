@@ -1,0 +1,40 @@
+{
+  "name": "instance-locker",
+  "version": "1.0.2",
+  "description": "Locks an application to a singel instance by using a mutex file.",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc",
+    "build-prod": "tsc -p prod.tsconfig.json",
+    "test": "nyc mocha --require mocha-steps"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Idono87/singel-instance-lock.git"
+  },
+  "keywords": [
+    "mutext",
+    "locker",
+    "instance"
+  ],
+  "author": "Sorin Sandru",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Idono87/singel-instance-lock/issues"
+  },
+  "homepage": "https://github.com/Idono87/singel-instance-lock#readme",
+  "devDependencies": {
+    "@types/node": "^9.6.2",
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^5.1.1",
+    "mocha-steps": "^1.1.0",
+    "nyc": "^11.7.1",
+    "source-map-support": "^0.5.4",
+    "typescript": "^2.8.1"
+  },
+  "engines": {
+    "node": ">=8.11.1",
+    "npm": ">=5.0.0"
+  }
+}
