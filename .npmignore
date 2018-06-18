@@ -4,3 +4,4 @@ README.md
 tsconfig.json
 prod.tsconfig.json
 test
+.nyc_output

@@ -68,6 +68,30 @@ class LockerAsync extends LockerBase {
     }
 
 
+
+    /**
+    * Returns the PID of owner for the current lock in a promise.
+    * 
+    * If no owner exists then it returns -1;
+    * 
+    * If any file errors occure, with the exception of ENOENT, then they will be thrown to the user.
+    */
+    public async GetOwnerPID():Promise<number>
+    {
+        let fd:number = await this.OpenLockFile();
+        if(fd > 0)
+        {
+            let pid:number = await this.ReadLockFile(fd);
+            this.CloseLockFile(fd);
+            if(this.IsProcessRunning(pid))
+            {
+                return pid;
+            }
+        }
+        return -1;
+    }
+
+
     /**
      * 
      * Create the lock file. 
@@ -78,11 +102,13 @@ class LockerAsync extends LockerBase {
      * Rejects an error.
      * 
      */
-    private async CreateLockFile(): Promise<number> {
-        return await new Promise<number>( (resolve, reject) : void =>
+    private async CreateLockFile(): Promise<number> 
+    {
+        return new Promise<number>( (resolve, reject) : void =>
         {
             //Create the file.
-            fs.open(this.ResolvePath(), fs.constants.O_EXCL | fs.constants.O_CREAT | fs.constants.O_WRONLY, null, (err: any, fd: number): void => {
+            fs.open(this.ResolvePath(), fs.constants.O_EXCL | fs.constants.O_CREAT | fs.constants.O_WRONLY, null, (err: any, fd: number): void => 
+            {
                 if(err){
 
                     if(err.code == "EEXIST"){
@@ -98,6 +124,39 @@ class LockerAsync extends LockerBase {
             });
         });
 
+    }
+
+
+    /**
+     * 
+     * Open an existing lock file.
+     * 
+     * Returns a promise that resolves to a file handle. If the file handle is positive 
+     * then the files was successfully opened. Otherwise the filehandle is negative if the file doesn't exist. 
+     * 
+     * Rejects any file errors.
+     * 
+     */
+    private async OpenLockFile(): Promise<number>
+    {
+        return new Promise<number>( ( resolve, reject ) : void =>
+        {
+            fs.open(this.ResolvePath(), fs.constants.O_RDONLY, null, (err:any, fd:number): void => 
+            {
+                if(err)
+                {
+                    if(err.code === 'ENOENT')
+                    {
+                        resolve(-1);
+                        return;
+                    }
+                    reject(err);
+                    return;
+                }
+
+                resolve(fd);
+            });
+        });
     }
 
     /**

@@ -82,6 +82,19 @@ Returns a promise that doesn't return a value when resolved. If an error occures
 
 Throws an error if something significant occures while unlocking and removing the locker.
 
+### Locker.GetOnwerPID() - Async Version
+
+Returns a promise that eventually resolves to the PID of the lock owner otherwise it resolves to -1 if there is no lock. Promise rejects if an error occures during the process.
+
+
+### Locker.GetOwnerPID() - Sync Version
+
+Returns PID of the owner. If there's no lock -1 will be returned. Errors will be thrown if the method fails.
+
+#### Side note. 
+
+All methods throw file related errors and should be handeled by the user.
+
 
 ## mechanisms at work
 The instance locker follows these steps to ensure that only one instance can take the locker.

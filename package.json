@@ -1,6 +1,6 @@
 {
   "name": "instance-locker",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Locks an application to a singel instance by using a mutex file.",
   "main": "lib/index.js",
   "scripts": {
@@ -31,7 +31,7 @@
     "mocha-steps": "^1.1.0",
     "nyc": "^11.7.1",
     "source-map-support": "^0.5.4",
-    "typescript": "^2.8.1"
+    "typescript": "^2.9.2"
   },
   "engines": {
     "node": ">=8.11.1",

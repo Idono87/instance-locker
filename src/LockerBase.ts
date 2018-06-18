@@ -45,6 +45,7 @@ abstract class LockerBase {
 
     public abstract Lock(): any;
     public abstract Unlock(): any;
+    public abstract GetOwnerPID():any;
 
 
     /**

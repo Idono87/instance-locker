@@ -2,6 +2,8 @@ const chai = require('chai');
 const Locker = require('../lib/index');
 const chaiProm = require('chai-as-promised');
 
+process.setMaxListeners(Infinity);
+
 chai.use(chaiProm);
 
 chai.should();
@@ -129,3 +131,34 @@ describe("Unlock Test User", function(){
         Lock_B.Unlock();
     });
 })
+
+
+
+describe("Get Owner PID", function()
+{
+    const LockName = "Get Owner PID Test"
+    let Lock_A;
+    let Lock_B;
+
+    step("Lock B should return the PID of this process", function(done)
+    {
+        Lock_A = Locker(LockName, false, true);
+        Lock_B = Locker(LockName, false, true);
+
+        Lock_A.Lock().then(function(success)
+        {
+            Lock_B.GetOwnerPID().should.eventually.equal(process.pid).notify(done);
+        });
+    })
+
+    step("Lock_A Should return -1 since there's no lock", function()
+    {
+        Lock_A = Locker(LockName, false, true);
+        Lock_A.GetOwnerPID().should.eventually.equal(-1);
+    });
+
+    afterEach(function()
+    {
+        Lock_A.Unlock();
+    })
+});

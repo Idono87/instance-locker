@@ -81,3 +81,32 @@ describe("Unlocking Sync Test", function(){
         Lock_B.Unlock().should.equal(true);
     });
 });
+
+
+
+describe("Get Owner PID Sync", function()
+{
+    const LockName = "GetOwnerPIDSync";
+    let Lock_A;
+    let Lock_B;
+
+    step('Lock_B Should get PID of this process.', function()
+    {
+        Lock_A = Locker(LockName, true, true);
+        Lock_B = Locker(LockName, true, true);
+
+        Lock_A.Lock();
+        Lock_B.GetOwnerPID().should.equal(process.pid);
+    });
+
+    step('Lock_A should return -1', function()
+    {
+        Lock_A = Locker(LockName, true, true);
+        Lock_A.GetOwnerPID();
+    });
+
+    afterEach(function()
+    {
+        Lock_A.Unlock();    
+    });
+})  
