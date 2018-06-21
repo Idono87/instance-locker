@@ -114,3 +114,14 @@ The library is not limited to only instance locking. An example is file locking 
 
 To contribute to the project visit the github page at https://github.com/Idono87/instance-locker
 
+
+## Changelog
+* 1.1.2 
+    - Fixed a bug in the async locker where staleness checks infinitely looped when the lock was available.
+* 1.1.1
+    - Added Typescript Definition files.
+* 1.1.0
+    - Added "GetOwnerPid" method to the async and sync lockers.
+
+
+

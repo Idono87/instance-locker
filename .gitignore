@@ -60,3 +60,4 @@ typings/
 .vs
 
 lib/
+.vscode

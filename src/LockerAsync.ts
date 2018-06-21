@@ -258,7 +258,6 @@ class LockerAsync extends LockerBase {
      */
     private async CheckStaleness():Promise<number>
     {
-
         try
         {
             let fd:number = await new Promise<number>(
@@ -281,12 +280,13 @@ class LockerAsync extends LockerBase {
             if(this.IsProcessRunning(pid)){
                 return -1;
             }
+
+            await this.RemoveLockFile();
         }
         catch(err)
         {
             if(err.code != "ENOENT") 
             {
-                await this.RemoveLockFile()
                 throw err;
             }
         }
