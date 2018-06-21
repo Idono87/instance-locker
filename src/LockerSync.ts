@@ -41,6 +41,7 @@ class LockerSync extends LockerBase {
         this.CloseLockFile(fd);
         
         //Success! Return true.
+        this.isLockOwner = true;
         return true;
     }
     

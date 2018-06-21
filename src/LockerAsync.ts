@@ -51,6 +51,7 @@ class LockerAsync extends LockerBase {
             throw err;
         }
 
+        this.isLockOwner = true;
         return true;
     }
 

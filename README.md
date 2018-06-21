@@ -116,6 +116,10 @@ To contribute to the project visit the github page at https://github.com/Idono87
 
 
 ## Changelog
+* 1.1.4
+    - Fixed a bug that that caused the lock file to be removed when the process exits.
+* 1.1.3
+    - Removed debugging code. 
 * 1.1.2 
     - Fixed a bug in the async locker where staleness checks infinitely looped when the lock was available.
 * 1.1.1

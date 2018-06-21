@@ -12,7 +12,8 @@ abstract class LockerBase {
 
     protected readonly sProcessName: string;
     protected readonly sPath?: string;
-    protected readonly bGlobalLock: boolean; 
+    protected readonly bGlobalLock: boolean;
+    protected isLockOwner:boolean;
 
 
     /**
@@ -38,6 +39,7 @@ abstract class LockerBase {
         }
 
         this.sProcessName = sProcessLockName;
+        this.isLockOwner = false;
 
         process.on('exit', () => this.OnExit());
     }
@@ -69,7 +71,7 @@ abstract class LockerBase {
         try {
             process.kill(pid, 0);
         } catch (err) {
-            if(err.code == "ESRCH") return false;
+            if(err.code === "ESRCH") return false;
 
             throw err;
         }
@@ -97,7 +99,9 @@ abstract class LockerBase {
 
     //Try to remove the lockfile if the process exits without unlocking the lock.
     protected OnExit():void {
-        this.Unlock();
+        if(this.isLockOwner){
+            this.Unlock();
+        }
     }
 }
 
